@@ -3,16 +3,25 @@
 import React from 'react';
 // to validate data in props add
 import PropTypes from 'prop-types';
-// add css
-import './header.css';
 
 // another syntax to export component:
 export const Header = props => {
-    // to use props in functional component need to pass them as 'props' and use with {props.NameHere}
+    // destructuring props
+    const { branding } = props;
+
     return (
-            <div>
-                <h1>{props.branding}</h1>
+        <nav className="navbar navbar-expand-sm navbar-dark bg-danger mb-3 py-0">
+            <div className="container">
+                <a href="/" className="navbar-brand">{branding}</a>
+                <div>
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item">
+                            <a href="/" className="nav-link">Home</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
     );
 }
 

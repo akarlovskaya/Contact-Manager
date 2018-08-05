@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+// add bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // this is default import, no need {}
-import Contact from './components/Contact';
+import Contacts from './components/Contacts';
 // {} is named import, name has to be the same as it is in component
 import { Header } from './components/Header';
+
 
 class App extends Component {
   render() {
@@ -12,10 +15,11 @@ class App extends Component {
     // here only JSX goes
       <div className="App">
           {/* add props for functional component */}
-          <Header branding="Content Manager1"/>
-          {/* add props for class component */}
-          <Contact name="John Doe" email="jdoe@mail.com" phone="(555)555-55-55"/>
-          <Contact name="Kate Doe" email="kdoe@mail.com" phone="(555)555-55-56"/>
+          <Header branding="Content Manager"/>
+          <div className="container">
+              <Contacts/>
+          </div>
+
       </div>
     );
   }

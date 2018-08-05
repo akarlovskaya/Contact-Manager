@@ -3,28 +3,51 @@ import PropTypes from 'prop-types';
 
 // this is class component (rcc)
 class Contact extends Component {
+    // add state to handle whether contact shown or not
+    state = {
+        showContactInfo: false
+    };
+
+    onShowClick = e => {
+        //state is immutable (you can't change it directly), use setState()
+        // toggle state
+        this.setState( {showContactInfo: !this.state.showContactInfo} )
+    };
+
+    onDeleteClick = () => {
+        // to get access to state in Contacts.js we need to use props
+        this.props.deleteClickHandler();
+    }
+
   render() {
     // to get props in class component use 'this' keyword
-    // using destructuring
-    const { name, email, phone } = this.props;
+    // define vars using destructuring
+    const { name, email, phone } = this.props.contact;
+    const { showContactInfo } = this.state;
 
     return (
-        <div>
+        <div className="card card-body mb-3">
             {/* <h4>{this.props.name}</h4> */}
-            {/* add inline style */}
-            <h4 style={{color: '#333'}}>{name}</h4>
-            <ul>
-                <li style={liStyle}>{email}</li>
-                <li style={liStyle}>{phone}</li>
-            </ul>
+            <h4>{name}
+                <i onClick={this.onShowClick}
+                    className="fas fa-sort-down"
+                    style={{ cursor: 'pointer' }}></i>
+                <i onClick={this.onDeleteClick}
+                    className="fas fa-times"
+                    style={{ cursor: 'pointer', color: 'red', float: 'right' }}
+                ></i>
+            </h4>
+
+            { showContactInfo ? (
+                <ul className="list-group">
+                    <li className="list-group-item">{email}</li>
+                    <li className="list-group-item">{phone}</li>
+                </ul>
+            ) : null }
+
         </div>
     );
   }
-}
-
-// add style as variable
-const liStyle = {
-    listStylePosition: 'outside'
 }
 
 // add defauil value
@@ -35,9 +58,8 @@ Contact.defaultProps = {
 }
 // validate prop data
 Contact.propTypes = {
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired
+    contact: PropTypes.object.isRequired,
+    deleteClickHandler: PropTypes.func.isRequired
 }
 
 // to render this - export it and import in App.js
