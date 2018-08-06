@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Consumer } from '../context';
 
 // this is class component (rcc)
 class Contact extends Component {
@@ -14,38 +15,45 @@ class Contact extends Component {
         this.setState( {showContactInfo: !this.state.showContactInfo} )
     };
 
-    onDeleteClick = () => {
-        // to get access to state in Contacts.js we need to use props
-        this.props.deleteClickHandler();
+    onDeleteClick = (id, dispatch) => {
+        dispatch({type: 'DELETE_CONTACT', payload: id});
     }
 
   render() {
     // to get props in class component use 'this' keyword
     // define vars using destructuring
-    const { name, email, phone } = this.props.contact;
+    const { id, name, email, phone } = this.props.contact;
     const { showContactInfo } = this.state;
 
     return (
-        <div className="card card-body mb-3">
-            {/* <h4>{this.props.name}</h4> */}
-            <h4>{name}
-                <i onClick={this.onShowClick}
-                    className="fas fa-sort-down"
-                    style={{ cursor: 'pointer' }}></i>
-                <i onClick={this.onDeleteClick}
-                    className="fas fa-times"
-                    style={{ cursor: 'pointer', color: 'red', float: 'right' }}
-                ></i>
-            </h4>
+        <Consumer>
+            {value => {
+                const {dispatch} = value;
+                return (
+                    <div className="card card-body mb-3">
+                        {/* <h4>{this.props.name}</h4> */}
+                        <h4>{name}
+                            <i onClick={this.onShowClick}
+                                className="fas fa-sort-down"
+                                style={{ cursor: 'pointer' }}></i>
+                            <i onClick={this.onDeleteClick}
+                                className="fas fa-times"
+                                style={{ cursor: 'pointer', color: 'red', float: 'right' }}
+                                onClick={this.onDeleteClick.bind(this, id, dispatch)}
+                            ></i>
+                        </h4>
 
-            { showContactInfo ? (
-                <ul className="list-group">
-                    <li className="list-group-item">{email}</li>
-                    <li className="list-group-item">{phone}</li>
-                </ul>
-            ) : null }
+                        { showContactInfo ? (
+                            <ul className="list-group">
+                                <li className="list-group-item">{email}</li>
+                                <li className="list-group-item">{phone}</li>
+                            </ul>
+                        ) : null }
 
-        </div>
+                    </div>
+                )
+            }}
+        </Consumer>
     );
   }
 }
@@ -58,8 +66,7 @@ Contact.defaultProps = {
 }
 // validate prop data
 Contact.propTypes = {
-    contact: PropTypes.object.isRequired,
-    deleteClickHandler: PropTypes.func.isRequired
+    contact: PropTypes.object.isRequired
 }
 
 // to render this - export it and import in App.js

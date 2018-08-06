@@ -6,6 +6,7 @@ import './App.css';
 import Contacts from './components/Contacts';
 // {} is named import, name has to be the same as it is in component
 import { Header } from './components/Header';
+import { Provider } from './context';
 
 
 class App extends Component {
@@ -13,14 +14,17 @@ class App extends Component {
     // here vars can be defined
     return (
     // here only JSX goes
-      <div className="App">
-          {/* add props for functional component */}
-          <Header branding="Content Manager"/>
-          <div className="container">
-              <Contacts/>
-          </div>
 
-      </div>
+        // wrap all app in Provider to have access to state value
+        <Provider>
+          <div className="App">
+              {/* add props for functional component */}
+              <Header branding="Content Manager" />
+              <div className="container">
+                  <Contacts />
+              </div>
+          </div>
+      </Provider>
     );
   }
 }
