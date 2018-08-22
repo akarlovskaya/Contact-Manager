@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+// This is Controlled component
+// we have state, we get values from props and onChange events
+// https://reactjs.org/docs/forms.html#controlled-components
+
 class AddContact extends React.Component {
     state = {
         name: '',

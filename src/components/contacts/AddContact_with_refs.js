@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// This is unControlled component - it holds state internally and uses refs (instead of props and onChange event) to find an element and get its value (form data is handled by the DOM itself)
+// https://reactjs.org/docs/uncontrolled-components.html
+
 class AddContact extends React.Component {
     constructor(props) {
         super(props);
@@ -19,8 +22,6 @@ class AddContact extends React.Component {
           email: this.emailInput.current.value,
           phone: this.phoneInput.current.value
       }
-
-
       console.log(contact);
   };
 
@@ -49,7 +50,7 @@ class AddContact extends React.Component {
                             name="name"
                             className="form-control from-control-lg"
                             placeholder="Enter name"
-                            // when you set 'value' to input, component becomes controlled component and need to add event handler function onChange which will update state based on input data
+                            // specify the initial value, but leave subsequent updates uncontrolled using defaultValue
                             defaultValue={name}
                             ref={this.nameInput}
                         />
