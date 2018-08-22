@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // this is default import, no need {}
-import Contacts from './components/Contacts';
+import Contacts from './components/contacts/Contacts';
 // {} is named import, name has to be the same as it is in component
-import { Header } from './components/Header';
+import { Header } from './components/layout/Header';
 import { Provider } from './context';
+import AddContact from './components/contacts/AddContact';
 
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
               {/* add props for functional component */}
               <Header branding="Content Manager" />
               <div className="container">
+                  <AddContact />
                   <Contacts />
               </div>
           </div>

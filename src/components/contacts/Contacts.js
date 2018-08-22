@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Contact component
 import Contact from './Contact';
 // add Consumer to use contacts
-import { Consumer } from '../context';
+import { Consumer } from '../../context';
 
 class Contacts extends Component {
 
@@ -11,6 +11,7 @@ class Contacts extends Component {
         // here we use Consumer to get Provider value with state
         <Consumer>
             {/* here goes function that accept value from Provider and must return React Element JSX */}
+            {/* if I need to use js  code in jsx - wrap it in {} */}
             {value => {
                 // destructuring contacts from value (state)
                 const { contacts } = value;
