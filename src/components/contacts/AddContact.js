@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Consumer } from '../../context.js';
 import uuid from 'uuid';
+import TextInputGroup from '../layout/TextInputGroup';
 
 // This is Controlled component
 // we have state, we get values from props and onChange events
@@ -66,40 +67,28 @@ class AddContact extends React.Component {
                         </div>
                         <div className="card-body">
                             <form onSubmit={this.submitHandler.bind(this, dispatch)}>
-                                <div className="form-group">
-                                    <label htmlFor="name">Name</label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        className="form-control from-control-lg"
-                                        placeholder="Enter name"
-                                        // when you set 'value' to input, component becomes controlled component and need to add event handler function onChange which will update state based on input data
-                                        value={name}
-                                        onChange={this.onChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="email">Email</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        className="form-control from-control-lg"
-                                        placeholder="Enter email"
-                                        value={email}
-                                        onChange={this.onChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="phone">Phone</label>
-                                    <input
-                                        type="text"
-                                        name="phone"
-                                        className="form-control from-control-lg"
-                                        placeholder="Enter phone"
-                                        value={phone}
-                                        onChange={this.onChange}
-                                    />
-                                </div>
+                                <TextInputGroup
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+                                />
+                                <TextInputGroup
+                                    label="Email"
+                                    name="email"
+                                    type="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+                                />
+                                <TextInputGroup
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+                                />
                                 <input
                                     type="submit"
                                     value="Add Contact"
