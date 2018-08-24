@@ -11,13 +11,28 @@ class AddContact extends React.Component {
     state = {
         name: '',
         email: '',
-        phone: ''
+        phone: '',
+        errors: {}
     };
 
 
   submitHandler = (dispatch, e) => {
       e.preventDefault();
       const { name, email, phone } = this.state;
+
+      // check for errors
+      if (name === '') {
+          this.setState({ errors: {name: 'Name is required'} });
+          return;
+      }
+      if (email === '') {
+          this.setState({ errors: {email: 'Email is required'} });
+          return;
+      }
+      if (phone === '') {
+          this.setState({ errors: {phone: 'Phone is required'} });
+          return;
+      }
 
       const newContact = {
           id: uuid(),
@@ -36,7 +51,8 @@ class AddContact extends React.Component {
           {
               name: '',
               email: '',
-              phone: ''
+              phone: '',
+              errors: {}
           }
       );
 
@@ -51,7 +67,8 @@ class AddContact extends React.Component {
   }
 
   render() {
-    const { name, email, phone } = this.state;
+    const { name, email, phone, errors } = this.state;
+
 
     return (
         <Consumer>
@@ -59,6 +76,7 @@ class AddContact extends React.Component {
             {value => {
                 // getting dispatch from state
                 const { dispatch } = value;
+                console.log(errors.name);
 
                 return (
                     <div className="card mb-3">
@@ -73,6 +91,7 @@ class AddContact extends React.Component {
                                     placeholder="Enter Name"
                                     value={name}
                                     onChange={this.onChange}
+                                    error={errors.name}
                                 />
                                 <TextInputGroup
                                     label="Email"
@@ -81,6 +100,7 @@ class AddContact extends React.Component {
                                     placeholder="Enter Email"
                                     value={email}
                                     onChange={this.onChange}
+                                    error={errors.email}
                                 />
                                 <TextInputGroup
                                     label="Phone"
@@ -88,6 +108,7 @@ class AddContact extends React.Component {
                                     placeholder="Enter Phone"
                                     value={phone}
                                     onChange={this.onChange}
+                                    error={errors.phone}
                                 />
                                 <input
                                     type="submit"
