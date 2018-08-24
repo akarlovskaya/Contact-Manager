@@ -56,7 +56,8 @@ class AddContact extends React.Component {
           }
       );
 
-      console.log(this.state);
+      // add redirect to home page
+      this.props.history.push('/');
   };
 
   // use "name" atr in input to determine the input field
@@ -76,7 +77,6 @@ class AddContact extends React.Component {
             {value => {
                 // getting dispatch from state
                 const { dispatch } = value;
-                console.log(errors.name);
 
                 return (
                     <div className="card mb-3">

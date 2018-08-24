@@ -18,6 +18,7 @@ class Contacts extends Component {
                 return (
                     // React.Fragment is like blank React tag, not visible in browser (allows to not use html tag as wrapper if not neededs)
                     <React.Fragment>
+                        <h1 className="display-4 mb-2"><span className="text-danger">Contact</span> list</h1>
                         {contacts.map(contact => (
                             <Contact
                                 // to avoid error "Each child in an array or iterator should have a unique "key" prop." - add key prop
