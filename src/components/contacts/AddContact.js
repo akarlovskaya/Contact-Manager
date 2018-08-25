@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Consumer } from '../../context.js';
-import uuid from 'uuid';
+// import uuid from 'uuid';
 import TextInputGroup from '../layout/TextInputGroup';
+import axios from 'axios';
 
 // This is Controlled component
 // we have state, we get values from props and onChange events
@@ -35,11 +36,19 @@ class AddContact extends React.Component {
       }
 
       const newContact = {
-          id: uuid(),
+          // id: uuid(),
           name,
           email,
           phone
       };
+
+      axios.post('https://jsonplaceholder.typicode.com/users/', newContact)
+        .then(res => {
+            dispatch({
+                type: 'ADD_CONTACT',
+                payload: res.data
+            });
+        })
 
       dispatch({
           type: 'ADD_CONTACT',

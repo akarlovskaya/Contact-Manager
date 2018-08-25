@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // add bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 // this is default import, no need {}
 import Contacts from './components/contacts/Contacts';
 // {} is named import, name has to be the same as it is in component

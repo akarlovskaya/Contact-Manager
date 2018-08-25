@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 // creating new context (this is new React's Context API (from 16 version)), returns object with Provider and Consumer
 const Context = React.createContext();
+
 
 // 'action' will be an object and will have type
 const reducer = (state, action) => {
@@ -25,29 +27,15 @@ const reducer = (state, action) => {
 // Provider Cmponent is used higher in the three and accepts prop called value (with state here)
 export class Provider extends Component {
     state = {
-        contacts: [
-                {
-                    id: 1,
-                    name: "John Doe",
-                    email: "jdoe@mail.com",
-                    phone: "(555)555-55-55"
-                },
-                {
-                    id: 2,
-                    name: "Marta Doe",
-                    email: "mdoe@mail.com",
-                    phone: "(555)555-55-56"
-                },
-                {
-                    id: 3,
-                    name: "Tim Doe",
-                    email: "tdoe@mail.com",
-                    phone: "(555)555-55-57"
-                }
-            ],
+        contacts: [],
             // function with action
             dispatch: action => this.setState(state => reducer(state, action))
 
+    };
+
+    componentDidMount() {
+        axios.get('https://jsonplaceholder.typicode.com/users')
+            .then(res => this.setState({ contacts: res.data }));
     }
 
     render() {
