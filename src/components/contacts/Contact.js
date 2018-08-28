@@ -17,9 +17,14 @@ class Contact extends Component {
         this.setState( {showContactInfo: !this.state.showContactInfo} )
     };
 
-    onDeleteClick = (id, dispatch) => {
-        axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-            .then(res => {dispatch({type: 'DELETE_CONTACT', payload: id})});
+    onDeleteClick = async (id, dispatch) => {
+        // try/catch workaround for 'deleting' new contact from jsonplaceholder API
+        try {
+            await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+                .then(res => {dispatch({type: 'DELETE_CONTACT', payload: id})});
+        } catch(e) {
+            dispatch({type: 'DELETE_CONTACT', payload: id});
+        }
     }
 
   render() {
@@ -39,10 +44,9 @@ class Contact extends Component {
                             <i onClick={this.onShowClick}
                                 className="fas fa-sort-down"
                                 style={{ cursor: 'pointer' }}></i>
-                            <i onClick={this.onDeleteClick}
+                            <i onClick={this.onDeleteClick.bind(this, id, dispatch)}
                                 className="fas fa-times"
                                 style={{ cursor: 'pointer', color: 'red', float: 'right' }}
-                                onClick={this.onDeleteClick.bind(this, id, dispatch)}
                             ></i>
                             <Link to={`contact/edit/${id}`}>
                                 <i

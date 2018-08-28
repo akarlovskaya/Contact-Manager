@@ -50,11 +50,6 @@ class AddContact extends React.Component {
             });
         })
 
-      dispatch({
-          type: 'ADD_CONTACT',
-          payload: newContact
-      });
-
       // clear inputs after submit
       this.setState(
           {
